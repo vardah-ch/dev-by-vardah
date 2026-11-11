@@ -119,8 +119,8 @@ h1,h2,h3{font-family:var(--serif);color:var(--plum);letter-spacing:-.025em;margi
 .fcard{position:absolute;border-radius:20px;transform-style:preserve-3d}
 .fcard>.in{border-radius:20px;background:rgba(255,253,250,.95);border:1px solid rgba(255,255,255,.85);box-shadow:0 50px 90px -40px rgba(0,0,0,.75),0 2px 6px rgba(0,0,0,.08);padding:20px;color:var(--ink)}
 .fcard.ledger{width:340px;left:6%;top:17%;transform:translateZ(40px)}
-.fcard.cara{width:270px;left:0;bottom:5%;transform:translateZ(110px)}
-.fcard.code{width:330px;right:0;top:44%;transform:translateZ(170px)}
+.fcard.cara{width:220px;left:-2%;bottom:12%;transform:translateZ(110px)}
+.fcard.code{width:318px;right:-5%;bottom:7%;transform:translateZ(170px)}
 .fcard.code>.in{background:linear-gradient(160deg,#5A1B30,var(--plum) 60%,var(--night-2));border-color:rgba(255,255,255,.14);color:var(--on-dark)}
 .kicker{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted);margin-bottom:12px}
 .demo{font-size:.6rem;letter-spacing:.12em;background:#FFF0C9;color:#5E4500;padding:3px 7px;border-radius:5px;white-space:nowrap}
@@ -143,7 +143,26 @@ pre.snip{margin:0;font:400 .76rem/1.7 var(--mono);white-space:pre;overflow:hidde
 .badge{position:absolute;right:-1%;top:-3%;width:150px;height:150px;transform:translateZ(220px)}
 .badge svg{width:100%;height:100%}
 .badge text{font:700 11.5px var(--sans);letter-spacing:2.2px;fill:var(--plum)}
-.stage-cap{position:absolute;left:0;bottom:-8px;font-size:.72rem;color:var(--on-dark-2)}
+.stage-cap{position:absolute;left:0;bottom:-30px;font-size:.72rem;color:var(--on-dark-2)}
+/* portrait + welcome */
+.portrait{position:absolute;left:22%;top:0;width:62%;height:94%;margin:0;border-radius:999px 999px 30px 30px;overflow:hidden;
+  box-shadow:0 60px 110px -40px rgba(0,0,0,.85),0 0 0 1px rgba(255,255,255,.14);background:#E9DED3}
+.portrait::before{content:"";position:absolute;inset:-14px;border-radius:999px 999px 40px 40px;border:1px solid rgba(231,185,193,.35);z-index:-1}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 20%;display:block}
+.portrait::after{content:"";position:absolute;inset:auto 0 0 0;height:30%;background:linear-gradient(transparent,rgba(27,14,25,.35));pointer-events:none}
+.portrait-ring{position:absolute;left:20%;top:-2%;width:68%;height:98%;border-radius:999px 999px 36px 36px;border:1px dashed rgba(231,185,193,.28);pointer-events:none}
+.hello{position:absolute;left:0;top:12%;z-index:5;max-width:230px;background:var(--card);color:var(--plum);border-radius:20px 20px 6px 20px;
+  padding:14px 18px;box-shadow:0 30px 60px -30px rgba(0,0,0,.8)}
+.hello b{display:block;font:500 1.25rem/1.15 var(--serif);letter-spacing:-.01em}
+.hello .sub{display:block;margin-top:5px;font-size:.84rem;line-height:1.4;color:var(--muted)}
+.hello::after{content:"";position:absolute;right:-9px;bottom:10px;width:18px;height:18px;background:var(--card);transform:rotate(45deg);border-radius:3px}
+.wave{display:inline-block;transform-origin:70% 70%}
+@media (prefers-reduced-motion:no-preference){.wave{animation:wave 2.4s ease-in-out 2.2s 3}}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}10%,30%{transform:rotate(16deg)}20%,40%{transform:rotate(-8deg)}}
+.about-side{display:flex;flex-direction:column;gap:28px}
+.about-photo{margin:0;position:relative;border-radius:26px;overflow:hidden;box-shadow:var(--shadow);aspect-ratio:4/5;max-height:520px}
+.about-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 25%;display:block}
+.about-photo figcaption{position:absolute;left:16px;bottom:16px;background:rgba(255,253,250,.92);color:var(--plum);font-size:.82rem;font-weight:600;padding:8px 14px;border-radius:999px}
 
 /* ---------- marquee ---------- */
 .marquee{overflow:hidden;border-bottom:1px solid var(--line);padding:26px 0;background:var(--ivory)}
@@ -470,7 +489,12 @@ footer a{color:var(--blush-2)}
   .stage{height:440px;margin-top:28px;perspective:none}
   .stack{transform:none!important}
   .fcard.ledger{width:80%;left:0;top:0;transform:none}
-  .fcard.code{width:82%;right:0;left:auto;top:40%;transform:none;z-index:2}
+  .portrait{left:16%;width:68%;top:4%;height:86%}
+  .portrait-ring{display:none}
+  .hello{top:2%;max-width:190px;padding:11px 14px}
+  .hello b{font-size:1.05rem}
+  .fcard.cara{display:none}
+  .fcard.code{width:70%;right:0;left:auto;top:auto;bottom:22px;transform:none;z-index:2}
   .fcard.cara{width:64%;left:0;bottom:22px;transform:none;z-index:3}
   pre.snip{font-size:.6rem}
   .badge{width:92px;height:92px;right:0;top:-6px;transform:none;z-index:4}
@@ -527,7 +551,7 @@ footer a{color:var(--blush-2)}
   <canvas class="globe" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div>
-      <p class="eyebrow fade" style="--d:1.25s">Vardah Ahmad · Full stack developer</p>
+      <p class="eyebrow fade" style="--d:1.25s">Hi, I'm Vardah <span class="wave" aria-hidden="true">👋</span> · Full stack developer</p>
       <h1 class="h1" id="hero-h">
         <span class="w"><span style="--i:0">I</span></span>
         <span class="w"><span style="--i:1">build</span></span>
@@ -554,18 +578,16 @@ footer a{color:var(--blush-2)}
       </div>
     </div>
 
-    <div class="stage" aria-hidden="true">
-      <div class="stack">
-        <div class="fcard ledger"><div class="in">
-          <div class="kicker">Landowner ledger <span class="demo">Demo data</span></div>
-          <div class="trio"><div><small>Agreed</small><b>24.0M</b></div><div><small>Paid</small><b>15.5M</b></div><div><small>Remaining</small><b>8.5M</b></div></div>
-          <div class="meter"><span></span></div>
-          <ul class="rows">
-            <li><span>02 Oct</span><span class="pill">Bank transfer</span><span>2,500,000</span></li>
-            <li><span>18 Sep</span><span class="pill c">Cheque</span><span>3,000,000</span></li>
-            <li><span>01 Sep</span><span class="pill g">Cash</span><span>1,000,000</span></li>
-          </ul>
-        </div></div>
+    <div class="stage">
+      <span class="portrait-ring" aria-hidden="true"></span>
+      <figure class="portrait">
+        <picture>
+          <source srcset="/img/vardah-hero.webp" type="image/webp">
+          <img src="/img/vardah-hero.jpg" alt="Vardah Ahmad, full stack developer" width="800" height="1000" fetchpriority="high" decoding="async">
+        </picture>
+      </figure>
+      <div class="hello" aria-hidden="true"><b>Hi, welcome! <span class="wave">👋</span></b><span class="sub">I'm Vardah. Glad you're here, have a look around.</span></div>
+      <div class="stack" aria-hidden="true">
         <div class="fcard cara"><div class="in">
           <div class="cara-h"><i></i>Cara · AI companion</div>
           <div class="bubble">Good morning. How are you feeling today?</div>
@@ -587,7 +609,7 @@ footer a{color:var(--blush-2)}
           </svg>
         </div>
       </div>
-      <p class="stage-cap">Illustration based on my ERP and VAMORA work. Values and chat are demo content.</p>
+      <p class="stage-cap" aria-hidden="true">Cards show demo content from my ERP and VAMORA work.</p>
     </div>
   </div>
   <a class="scroll-cue fade" style="--d:2.3s" href="#glance" aria-label="Scroll to work overview"><span aria-hidden="true">Scroll</span><i aria-hidden="true"></i></a>
@@ -1030,8 +1052,17 @@ footer a{color:var(--blush-2)}
           <li class="reveal"><time>2026</time><b>Built VAMORA and graduated</b><span>Final year project, CGPA 3.14 / 4.0</span></li>
           <li class="reveal"><time>Sep 2026</time><b>Certifications</b><span>React, SQL (Advanced), Python, machine learning and job simulations</span></li>
           <li class="reveal"><time>Aug 2026</time><b>Partner at Shalimar Builders and Developers</b><span>Started the ERP and the company website</span></li>
+          <li class="reveal"><time>Nov 2026</time><b>Foundations of Retrieval, Castorini (Waterloo)</b><span>Reproduction logs merged into Anserini and Pyserini by Prof. Jimmy Lin</span></li>
         </ol>
       </div>
+      <div class="about-side">
+      <figure class="about-photo reveal">
+        <picture>
+          <source srcset="/img/vardah-about.webp" type="image/webp">
+          <img src="/img/vardah-about.jpg" alt="Vardah Ahmad in a burgundy shirt" width="800" height="1000" loading="lazy" decoding="async">
+        </picture>
+        <figcaption>Vardah Ahmad · Mandi Bahauddin, Pakistan</figcaption>
+      </figure>
       <div class="edu reveal">
         <h3>BS Computer Science</h3>
         <p class="meta">University of Gujrat · 2022 – 2026</p>
@@ -1049,6 +1080,7 @@ footer a{color:var(--blush-2)}
           <li><b>Cisco</b><span>Introduction to Cybersecurity</span></li>
           <li><b>Coursera</b><span>C++ File Handling</span></li>
         </ul>
+      </div>
       </div>
     </div>
   </div>
