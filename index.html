@@ -271,6 +271,8 @@ section{position:relative}
 .build-body .chips{margin-top:4px}
 .build-body .chips li{font-size:.72rem;padding:3px 10px}
 .build-body .links-row{margin-top:auto;padding-top:10px;gap:16px}
+.build.wide{grid-column:1/-1;flex-direction:row}
+.build.wide .build-art{height:auto;min-height:150px;flex:0 0 32%}
 
 /* ---------- skills ---------- */
 .skills{background:var(--ivory-2)}
@@ -437,6 +439,8 @@ footer a{color:var(--blush-2)}
   .case-visual{position:relative;top:0}
   .skills-wrap,.about-grid{grid-template-columns:1fr;gap:48px}
   .qs,.builds{grid-template-columns:1fr 1fr}
+  .build.wide{flex-direction:column}
+  .build.wide .build-art{flex:none;height:150px}
   .qs .q:last-child{grid-column:span 2}
   .bento{grid-template-columns:1fr 1fr}
   .tile.big{grid-row:auto;grid-column:span 2}
@@ -627,9 +631,9 @@ footer a{color:var(--blush-2)}
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
       </a>
       <a class="tile reveal" style="--i:4" href="#more" data-tilt="5">
-        <span class="k">Live demos</span>
-        <span class="n">3 <em>more</em></span>
-        <p>Restaurant ordering with an admin portal, a pharmacy site and a client website.</p>
+        <span class="k">More work</span>
+        <span class="n">4 <em>more</em></span>
+        <p>Open-source retrieval research merged at Waterloo's Castorini group, plus restaurant ordering, a pharmacy site and a client website.</p>
         <span class="go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
       </a>
     </div>
@@ -852,10 +856,20 @@ footer a{color:var(--blush-2)}
     <div class="more" id="more">
       <div class="more-head">
         <h3 class="reveal-title">More <em>builds</em></h3>
-        <p class="reveal">A live client website, plus demos I build for clients to show them what their own system could look like.</p>
+        <p class="reveal">Open-source research work, a live client website, and demos I build for clients to show them what their own system could look like.</p>
       </div>
       <div class="builds">
-        <article class="build reveal" style="--i:0">
+        <article class="build wide reveal" style="--i:0" id="castorini">
+          <div class="build-art a1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M8 10.5h5M10.5 8v5"/></svg></div>
+          <div class="build-body">
+            <span class="k">Open source · merged · University of Waterloo</span>
+            <h4>Foundations of Retrieval (Castorini)</h4>
+            <p>I completed all eight lessons of the onboarding path from Prof. Jimmy Lin's research group: BM25 over 8.8 million MS MARCO passages, dense retrieval with BGE-base, Contriever and HNSW, and learned sparse retrieval with SPLADE-v3. Every metric matched the published values, on 8–12 GB of RAM and no GPU, including a 26 GB dense index on Google Colab. Prof. Lin reviewed and merged my reproduction logs into both toolkits.</p>
+            <ul class="chips"><li>Python</li><li>Java</li><li>Lucene</li><li>Anserini</li><li>Pyserini</li><li>Faiss</li></ul>
+            <div class="links-row"><a class="textlink" href="https://github.com/castorini/anserini/pull/3524" target="_blank" rel="noopener">Anserini PR #3524 ↗<span class="sr-only"> (opens in a new tab)</span></a><a class="textlink" href="https://github.com/castorini/pyserini/pull/2785" target="_blank" rel="noopener">Pyserini PR #2785 ↗<span class="sr-only"> (opens in a new tab)</span></a></div>
+          </div>
+        </article>
+        <article class="build reveal" style="--i:1">
           <div class="build-art a1" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg></div>
           <div class="build-body">
             <span class="k">Client website · live</span>
@@ -865,7 +879,7 @@ footer a{color:var(--blush-2)}
             <div class="links-row"><a class="textlink" href="https://shalimar-city-demo.vercel.app/" target="_blank" rel="noopener">Live site ↗<span class="sr-only"> (opens in a new tab)</span></a><a class="textlink" href="https://github.com/vardah-ch/shalimar-city-demo" target="_blank" rel="noopener">Code ↗<span class="sr-only"> (opens in a new tab)</span></a></div>
           </div>
         </article>
-        <article class="build reveal" style="--i:1">
+        <article class="build reveal" style="--i:2">
           <div class="build-art a2" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16a8 8 0 0 1-16 0zM12 3v3M8 4v2M16 4v2M2 21h20"/></svg></div>
           <div class="build-body">
             <span class="k">Template · restaurants</span>
@@ -875,7 +889,7 @@ footer a{color:var(--blush-2)}
             <div class="links-row"><a class="textlink" href="https://demos-restaurant-by-vardah.vercel.app/" target="_blank" rel="noopener">Live demo ↗<span class="sr-only"> (opens in a new tab)</span></a><a class="textlink" href="https://demos-restaurant-by-vardah.vercel.app/admin" target="_blank" rel="noopener">Admin portal ↗<span class="sr-only"> (opens in a new tab)</span></a><a class="textlink" href="https://github.com/vardah-ch/demos-restaurant-by-vardah" target="_blank" rel="noopener">Code ↗<span class="sr-only"> (opens in a new tab)</span></a></div>
           </div>
         </article>
-        <article class="build reveal" style="--i:2">
+        <article class="build reveal" style="--i:3">
           <div class="build-art a3" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/></svg></div>
           <div class="build-body">
             <span class="k">Client-pitch demo · pharmacy</span>
@@ -947,9 +961,10 @@ footer a{color:var(--blush-2)}
         <div class="tabpanel" role="tabpanel" id="panel-3" aria-labelledby="tab-3" tabindex="0" hidden>
           <h3>Where software listens</h3>
           <p>Language models and machine learning, used carefully inside real products.</p>
-          <ul class="skillchips"><li>LLM APIs</li><li>Groq</li><li>Llama 3</li><li>Chat assistants</li><li>RAG</li><li>Python</li><li>Machine learning with Python</li></ul>
+          <ul class="skillchips"><li>LLM APIs</li><li>Groq</li><li>Llama 3</li><li>Chat assistants</li><li>RAG</li><li>Information retrieval</li><li>BM25</li><li>Dense retrieval</li><li>SPLADE</li><li>Anserini</li><li>Pyserini</li><li>Python</li><li>Machine learning with Python</li></ul>
           <ul class="used">
             <li><b>VAMORA</b><span>Cara, an AI companion on Llama 3, and AI mood detection</span></li>
+            <li><b>Castorini</b><span>BM25, dense and SPLADE retrieval reproduced; logs merged into Anserini and Pyserini</span></li>
             <li><b>Also</b><span>Retrieval-augmented generation (RAG) project work</span></li>
             <li><b>Certified</b><span>Machine Learning using Python (Simplilearn)</span></li>
           </ul>
@@ -1053,7 +1068,7 @@ footer a{color:var(--blush-2)}
       <article class="q reveal" style="--i:2"><span class="qn">iii.</span><h3>Natural language processing</h3><p>Can language models turn caretaker notes and conversations into summaries that doctors can trust and check?</p></article>
     </div>
     <div class="applied">
-      <div class="reveal"><b>What I've built so far</b>VAMORA includes Cara, an AI companion on Llama 3, and AI-based mood detection. I've also worked on retrieval-augmented generation (RAG).</div>
+      <div class="reveal"><b>What I've built so far</b>VAMORA includes Cara, an AI companion on Llama 3, and AI-based mood detection. I've also worked on retrieval-augmented generation (RAG), and completed the <a href="#castorini">Foundations of Retrieval onboarding</a> from Prof. Jimmy Lin's group at the University of Waterloo, where my reproduction logs were merged into Anserini and Pyserini.</div>
       <div class="reveal" style="--i:1"><b>What I'm looking for</b>My experience is applied, not published research yet. I want a programme where I can learn proper research methods and test ideas with real users.</div>
     </div>
   </div>
