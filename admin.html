@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · dev by Vardah</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+:root{
+  --night:#1B0E19; --plum:#3E2037; --burgundy:#6E1F33; --rose:#D48A9B; --blush:#F3D9DC;
+  --champagne:#E9CFA9; --ivory:#FBF7F1; --ivory-2:#F4ECE2; --card:#FFFDFA;
+  --ink:#2A1A24; --muted:#6B5560; --line:rgba(62,32,55,.14); --green:#3E9B6B;
+  --shadow:0 1px 2px rgba(62,32,55,.06),0 18px 36px -22px rgba(62,32,55,.3);
+  --serif:Georgia,"Times New Roman",serif; --sans:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ivory);color:var(--ink);font:15px/1.5 var(--sans)}
+button,input,textarea,select{font:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{background:var(--plum);color:var(--ivory)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px}
+header h1{font:400 1.35rem var(--serif);margin:0}
+header h1 em{color:var(--rose)}
+header .right{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+header a,header button{color:var(--ivory);background:transparent;border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:7px 14px;text-decoration:none;cursor:pointer;font-size:.85rem}
+header a:hover,header button:hover{background:rgba(255,255,255,.1)}
+.login{max-width:380px;margin:12vh auto;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:var(--shadow)}
+.login h2{font:400 1.6rem var(--serif);margin:0 0 6px;color:var(--plum)}
+.login p{color:var(--muted);margin:0 0 18px}
+input,textarea,select{width:100%;background:var(--ivory);border:1px solid var(--line);border-radius:10px;padding:11px 13px;color:var(--ink)}
+input:focus,textarea:focus{outline:2px solid var(--rose);border-color:var(--burgundy)}
+.btn{background:var(--plum);color:var(--ivory);border:0;border-radius:999px;padding:11px 20px;font-weight:700;cursor:pointer}
+.btn:hover{background:var(--burgundy)}
+.btn.ghost{background:transparent;color:var(--plum);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--blush)}
+.btn.small{padding:6px 12px;font-size:.8rem;font-weight:600}
+.err{color:var(--burgundy);font-weight:600;min-height:1.3em;margin:10px 0 0}
+main{padding:26px 0 60px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+@media (max-width:820px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;box-shadow:var(--shadow)}
+.kpi small{display:block;color:var(--muted);font-weight:600;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+.kpi b{display:block;font:400 2rem var(--serif);color:var(--plum);margin-top:4px}
+.kpi span{color:var(--muted);font-size:.82rem}
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+@media (max-width:900px){.grid{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.panel h2{font:400 1.25rem var(--serif);color:var(--plum);margin:0 0 4px}
+.panel .sub{color:var(--muted);font-size:.85rem;margin:0 0 14px}
+.chart{display:flex;align-items:flex-end;gap:4px;height:180px;padding-top:10px;border-bottom:1px solid var(--line)}
+.chart .bar{flex:1;background:var(--rose);border-radius:4px 4px 0 0;min-height:2px;position:relative}
+.chart .bar:hover{background:var(--burgundy)}
+.chart .bar:last-child{background:var(--burgundy)}
+.chart .bar[data-tip]:hover::after{content:attr(data-tip);position:absolute;bottom:100%;left:50%;transform:translate(-50%,-6px);background:var(--night);color:var(--ivory);font-size:.75rem;padding:4px 8px;border-radius:6px;white-space:nowrap;z-index:2}
+.axis{display:flex;justify-content:space-between;color:var(--muted);font-size:.75rem;margin-top:6px}
+.list{list-style:none;margin:0;padding:0}
+.list li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.list li:last-child{border-bottom:0}
+.list .meter{flex:1;margin:0 10px;align-self:center;height:6px;background:var(--ivory-2);border-radius:99px;overflow:hidden}
+.list .meter i{display:block;height:100%;background:var(--rose)}
+.empty{color:var(--muted);font-size:.9rem;padding:8px 0}
+.leads{display:grid;gap:10px}
+.lead{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--ivory)}
+.lead.unread{border-color:var(--burgundy);background:#fff}
+.lead .top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:baseline}
+.lead .who{font-weight:700}
+.lead .who a{color:var(--burgundy)}
+.lead .meta{color:var(--muted);font-size:.8rem}
+.lead .tag{display:inline-block;background:var(--blush);color:var(--plum);font-size:.75rem;font-weight:700;border-radius:999px;padding:2px 10px;margin-left:6px}
+.lead p{margin:8px 0 10px;white-space:pre-wrap}
+.lead .actions{display:flex;gap:8px;flex-wrap:wrap}
+.form{display:grid;gap:12px}
+.form label{display:grid;gap:5px;font-weight:600;font-size:.82rem;color:var(--muted)}
+.check{display:flex!important;align-items:center;gap:8px!important;grid-template-columns:none}
+.check input{width:auto}
+.links{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.links a{display:block;text-decoration:none;color:var(--plum);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-weight:600;font-size:.88rem}
+.links a:hover{background:var(--blush)}
+.note{color:var(--muted);font-size:.8rem;margin-top:10px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>dev by Vardah · <em>admin</em></h1>
+    <div class="right" id="hdr" hidden>
+      <a href="/" target="_blank" rel="noopener">View site</a>
+      <button id="refresh" type="button">Refresh</button>
+      <button id="logout" type="button">Log out</button>
+    </div>
+  </div>
+</header>
+
+<section class="login" id="login">
+  <h2>Sign in</h2>
+  <p>Only you can see this page.</p>
+  <form id="loginForm">
+    <input id="pw" type="password" placeholder="Admin password" autocomplete="current-password" required>
+    <p class="err" id="loginErr"></p>
+    <button class="btn" type="submit">Open dashboard</button>
+  </form>
+</section>
+
+<main id="app" hidden>
+  <div class="wrap">
+    <div class="kpis">
+      <div class="kpi"><small>Views today</small><b id="kToday">0</b><span id="kTodayVs"></span></div>
+      <div class="kpi"><small>Last 7 days</small><b id="k7">0</b><span id="k7vs"></span></div>
+      <div class="kpi"><small>Last 30 days</small><b id="k30">0</b><span>page views</span></div>
+      <div class="kpi"><small>Messages</small><b id="kLeads">0</b><span id="kUnread"></span></div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <div class="panel">
+          <h2>Visitors, last 30 days</h2>
+          <p class="sub">Page views per day (Pakistan time). Bots and link previews are not counted.</p>
+          <div class="chart" id="chart"></div>
+          <div class="axis"><span id="axFrom"></span><span id="axTo"></span></div>
+        </div>
+
+        <div class="panel">
+          <h2>Messages from the contact form</h2>
+          <p class="sub">New messages are outlined. Reply opens your email app.</p>
+          <div class="leads" id="leads"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel">
+          <h2>Where visitors come from</h2>
+          <p class="sub">Last 30 days</p>
+          <ul class="list" id="refs"></ul>
+        </div>
+
+        <div class="panel">
+          <h2>Site settings</h2>
+          <p class="sub">Changes show on the live site within about a minute.</p>
+          <form class="form" id="settingsForm">
+            <label class="check"><input type="checkbox" name="showAvailability"> Show availability badge</label>
+            <label>Availability text<input name="availability" maxlength="120"></label>
+            <label>Top banner (leave empty to hide)<input name="banner" maxlength="160" placeholder="e.g. Taking 2 new client projects this month"></label>
+            <label>Banner link (optional)<input name="bannerLink" placeholder="https://..."></label>
+            <button class="btn" type="submit">Save settings</button>
+            <p class="err" id="setMsg"></p>
+          </form>
+        </div>
+
+        <div class="panel">
+          <h2>Quick links</h2>
+          <div class="links">
+            <a href="https://www.linkedin.com/in/vardah-ahmad" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://github.com/vardah-ch" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.fiverr.com/ch_vardah" target="_blank" rel="noopener">Fiverr</a>
+            <a href="https://studio.youtube.com" target="_blank" rel="noopener">YouTube Studio</a>
+            <a href="https://x.com" target="_blank" rel="noopener">X</a>
+            <a href="https://vercel.com/dashboard" target="_blank" rel="noopener">Vercel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  var d = document, KEY = 'vardah-admin-key';
+  var key = '';
+  try { key = sessionStorage.getItem(KEY) || ''; } catch (e) {}
+
+  function api(body) {
+    return fetch('/api/admin', { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-key': key }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().then(function (j) { if (!r.ok) { var e = new Error(j.error || 'Error'); e.status = r.status; throw e; } return j; }); });
+  }
+  function el(tag, cls, text) { var e = d.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function fmt(n) { return Number(n || 0).toLocaleString('en-US'); }
+  function sum(a) { return a.reduce(function (s, x) { return s + (x.views || 0); }, 0); }
+  function vs(cur, prev, label) { if (!prev) return cur ? 'first data ' + label : 'no visits yet'; var p = Math.round((cur - prev) / prev * 100); return (p >= 0 ? '+' : '') + p + '% vs ' + label; }
+
+  function show(data) {
+    d.getElementById('login').hidden = true;
+    d.getElementById('app').hidden = false;
+    d.getElementById('hdr').hidden = false;
+    var days = data.days, n = days.length;
+    var today = days[n - 1].views, yest = days[n - 2].views;
+    var last7 = sum(days.slice(-7)), prev7 = sum(days.slice(-14, -7));
+    d.getElementById('kToday').textContent = fmt(today);
+    d.getElementById('kTodayVs').textContent = vs(today, yest, 'yesterday');
+    d.getElementById('k7').textContent = fmt(last7);
+    d.getElementById('k7vs').textContent = vs(last7, prev7, 'previous 7 days');
+    d.getElementById('k30').textContent = fmt(sum(days));
+
+    var max = Math.max.apply(null, days.map(function (x) { return x.views; }).concat([1]));
+    var chart = d.getElementById('chart'); chart.innerHTML = '';
+    days.forEach(function (x) {
+      var b = el('div', 'bar'); b.style.height = (x.views / max * 100) + '%';
+      b.setAttribute('data-tip', x.day + ': ' + x.views + ' views'); b.setAttribute('aria-label', x.day + ': ' + x.views + ' views');
+      chart.appendChild(b);
+    });
+    d.getElementById('axFrom').textContent = days[0].day;
+    d.getElementById('axTo').textContent = 'Today';
+
+    var refs = {};
+    days.forEach(function (x) { Object.keys(x.refs || {}).forEach(function (k) { refs[k] = (refs[k] || 0) + x.refs[k]; }); });
+    var rl = d.getElementById('refs'); rl.innerHTML = '';
+    var keys = Object.keys(refs).sort(function (a, b) { return refs[b] - refs[a]; }).slice(0, 10);
+    var rmax = keys.length ? refs[keys[0]] : 1;
+    if (!keys.length) rl.appendChild(el('li', 'empty', 'No visits recorded yet.'));
+    keys.forEach(function (k) {
+      var li = el('li'); li.appendChild(el('span', '', k === 'direct' ? 'Direct / apps' : k));
+      var m = el('span', 'meter'); var i = el('i'); i.style.width = (refs[k] / rmax * 100) + '%'; m.appendChild(i); li.appendChild(m);
+      li.appendChild(el('b', '', fmt(refs[k]))); rl.appendChild(li);
+    });
+
+    var leads = data.leads || [];
+    var unread = leads.filter(function (l) { return !l.read; }).length;
+    d.getElementById('kLeads').textContent = fmt(leads.length);
+    d.getElementById('kUnread').textContent = unread + ' new';
+    var box = d.getElementById('leads'); box.innerHTML = '';
+    if (!leads.length) box.appendChild(el('p', 'empty', 'No messages yet. They will appear here when someone uses the form on your site.'));
+    leads.forEach(function (l) {
+      var c = el('div', 'lead' + (l.read ? '' : ' unread'));
+      var top = el('div', 'top'); var who = el('div', 'who');
+      who.appendChild(d.createTextNode(l.name + ' · '));
+      var a = el('a', '', l.email); a.href = 'mailto:' + encodeURIComponent(l.email) + '?subject=' + encodeURIComponent('Re: your message on devbyvardah'); who.appendChild(a);
+      if (l.topic) who.appendChild(el('span', 'tag', l.topic));
+      top.appendChild(who); top.appendChild(el('span', 'meta', new Date(l.createdAt).toLocaleString()));
+      c.appendChild(top); c.appendChild(el('p', '', l.message));
+      var act = el('div', 'actions');
+      var mk = el('button', 'btn ghost small', l.read ? 'Mark as new' : 'Mark as read'); mk.type = 'button';
+      mk.onclick = function () { api({ action: 'markLead', id: l.id, read: !l.read }).then(load); };
+      var del = el('button', 'btn ghost small', 'Delete'); del.type = 'button';
+      del.onclick = function () { if (del.dataset.sure) { api({ action: 'deleteLead', id: l.id }).then(load); } else { del.dataset.sure = '1'; del.textContent = 'Click again to delete'; } };
+      act.appendChild(mk); act.appendChild(del); c.appendChild(act); box.appendChild(c);
+    });
+
+    var f = d.getElementById('settingsForm'), s = data.settings || {};
+    f.showAvailability.checked = !!s.showAvailability;
+    f.availability.value = s.availability || '';
+    f.banner.value = s.banner || '';
+    f.bannerLink.value = s.bannerLink || '';
+  }
+
+  function load() {
+    return api({ action: 'overview' }).then(show).catch(function (e) {
+      if (e.status === 401) { logout(); d.getElementById('loginErr').textContent = 'Wrong password.'; }
+      else { d.getElementById('loginErr').textContent = 'Could not load: ' + e.message; }
+    });
+  }
+  function logout() {
+    key = ''; try { sessionStorage.removeItem(KEY); } catch (e) {}
+    d.getElementById('login').hidden = false; d.getElementById('app').hidden = true; d.getElementById('hdr').hidden = true;
+  }
+
+  d.getElementById('loginForm').addEventListener('submit', function (e) {
+    e.preventDefault(); key = d.getElementById('pw').value;
+    try { sessionStorage.setItem(KEY, key); } catch (e2) {}
+    d.getElementById('loginErr').textContent = 'Checking...';
+    load().then(function () { if (key) d.getElementById('loginErr').textContent = ''; });
+  });
+  d.getElementById('logout').onclick = logout;
+  d.getElementById('refresh').onclick = load;
+  d.getElementById('settingsForm').addEventListener('submit', function (e) {
+    e.preventDefault(); var f = e.target, m = d.getElementById('setMsg'); m.textContent = 'Saving...';
+    api({ action: 'saveSettings', settings: { showAvailability: f.showAvailability.checked, availability: f.availability.value, banner: f.banner.value, bannerLink: f.bannerLink.value } })
+      .then(function () { m.textContent = 'Saved.'; }).catch(function (er) { m.textContent = er.message; });
+  });
+
+  if (key) load();
+})();
+</script>
+</body>
+</html>

@@ -522,6 +522,27 @@ footer a{color:var(--blush-2)}
   .clinks{grid-template-columns:1fr}
   .mail{padding:12px 20px}
 }
+
+/* contact form + live site settings (managed from /admin) */
+.cform{max-width:640px;margin:46px auto 0;text-align:left;display:grid;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--shadow)}
+.cform h3{font:400 1.5rem var(--serif);color:var(--plum);margin:0 0 4px}
+.cform .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:640px){.cform .row{grid-template-columns:1fr}}
+.cform label{display:grid;gap:6px;font:600 .8rem var(--sans);color:var(--muted)}
+.cform input,.cform select,.cform textarea{font:500 1rem var(--sans);color:var(--ink);background:var(--ivory);border:1px solid var(--line);border-radius:12px;padding:12px 14px;width:100%}
+.cform textarea{min-height:130px;resize:vertical}
+.cform input:focus,.cform select:focus,.cform textarea:focus{outline:2px solid var(--rose);outline-offset:1px;border-color:var(--burgundy)}
+.cform .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cform button{justify-self:start;font:700 .95rem var(--sans);background:var(--plum);color:var(--ivory);border:0;border-radius:999px;padding:14px 26px;cursor:pointer;transition:background .3s}
+.cform button:hover{background:var(--burgundy)}
+.cform button[disabled]{opacity:.6;cursor:wait}
+.cform .status{font:600 .9rem var(--sans);color:var(--burgundy);min-height:1.2em;margin:0}
+.avail{display:none;align-items:center;gap:8px;font:600 .8rem var(--sans);color:var(--plum);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;margin:0 0 16px}
+.avail.on{display:inline-flex}
+.avail i{width:8px;height:8px;border-radius:50%;background:#3E9B6B;box-shadow:0 0 0 4px rgba(62,155,107,.18)}
+.site-banner{display:none;background:var(--plum);color:var(--ivory);text-align:center;font:600 .9rem var(--sans);padding:10px 16px}
+.site-banner.on{display:block}
+.site-banner a{color:var(--champagne)}
 </style>
 </head>
 <body>
@@ -547,11 +568,13 @@ footer a{color:var(--blush-2)}
 </header>
 
 <main id="main">
+<div class="site-banner" id="site-banner" role="status"></div>
 <!-- ============ HERO ============ -->
 <section class="hero" id="home" aria-labelledby="hero-h">
   <canvas class="globe" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div>
+      <p class="avail" id="avail"><i aria-hidden="true"></i><span></span></p>
       <p class="eyebrow fade" style="--d:1.25s">Hi, I'm Vardah <span class="wave" aria-hidden="true">👋</span> · Full stack developer</p>
       <h1 class="h1" id="hero-h">
         <span class="w"><span style="--i:0">I</span></span>
@@ -1128,6 +1151,27 @@ footer a{color:var(--blush-2)}
       <button class="copy" type="button" data-copy="wardahch70@gmail.com"><span class="idle">Copy email address</span><span class="done">Copied ✓</span></button>
       <p class="sr-only" aria-live="polite" id="copy-status"></p>
     </div>
+    <form class="cform reveal" id="cform" novalidate>
+      <h3>Or send me a message here</h3>
+      <div class="row">
+        <label>Your name<input name="name" autocomplete="name" required maxlength="120"></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required maxlength="160"></label>
+      </div>
+      <label>What is it about?
+        <select name="topic">
+          <option>Website for my business</option>
+          <option>ERP or admin dashboard</option>
+          <option>AI chatbot or RAG</option>
+          <option>Job or internship</option>
+          <option>Research position</option>
+          <option>Something else</option>
+        </select>
+      </label>
+      <label>Message<textarea name="message" required maxlength="4000"></textarea></label>
+      <label class="hp" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off"></label>
+      <button type="submit">Send message</button>
+      <p class="status" id="cform-status" aria-live="polite"></p>
+    </form>
     <div class="clinks">
       <a class="clink reveal" style="--i:0" href="https://github.com/vardah-ch" target="_blank" rel="noopener"><span><small>GitHub</small><span>vardah-ch</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
       <a class="clink reveal" style="--i:1" href="https://www.linkedin.com/in/vardah-ahmad" target="_blank" rel="noopener"><span><small>LinkedIn</small><span>Vardah Ahmad</span></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="sr-only"> (opens in a new tab)</span></a>
@@ -1336,6 +1380,35 @@ footer a{color:var(--blush-2)}
     if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) { cx += dx * 0.2; cy += dy * 0.2; cur.style.transform = 'translate3d(' + cx.toFixed(1) + 'px,' + cy.toFixed(1) + 'px,0)'; }
     requestAnimationFrame(tick);
   })();
+})();
+</script>
+
+<script>
+(function () {
+  var d = document;
+  try { navigator.sendBeacon && navigator.sendBeacon('/api/track', new Blob([JSON.stringify({ path: location.pathname, ref: d.referrer })], { type: 'application/json' })); } catch (e) {}
+  fetch('/api/settings').then(function (r) { return r.ok ? r.json() : null; }).then(function (s) {
+    if (!s) return;
+    var a = d.getElementById('avail');
+    if (a && s.showAvailability && s.availability) { a.querySelector('span').textContent = s.availability; a.classList.add('on'); }
+    var b = d.getElementById('site-banner');
+    if (b && s.banner) {
+      if (s.bannerLink) { var l = d.createElement('a'); l.href = s.bannerLink; l.textContent = s.banner; b.appendChild(l); } else { b.textContent = s.banner; }
+      b.classList.add('on');
+    }
+  }).catch(function () {});
+  var f = d.getElementById('cform'), st = d.getElementById('cform-status');
+  if (f) f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var data = Object.fromEntries(new FormData(f).entries());
+    if (!data.name || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) || (data.message || '').trim().length < 5) { st.textContent = 'Please add your name, a valid email and a short message.'; return; }
+    var btn = f.querySelector('button'); btn.disabled = true; st.textContent = 'Sending...';
+    fetch('/api/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (x) { if (x.ok) { f.reset(); st.textContent = "Thanks, your message reached me. I'll reply by email."; } else { st.textContent = x.j.error || 'Something went wrong. Please email me instead.'; } })
+      .catch(function () { st.textContent = 'Something went wrong. Please email me instead.'; })
+      .then(function () { btn.disabled = false; });
+  });
 })();
 </script>
 </body>
