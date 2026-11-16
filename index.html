@@ -237,6 +237,11 @@ section{position:relative}
 .listing b{display:block;color:var(--plum);font-size:.78rem}
 .listing small{color:var(--muted);font-size:.66rem}
 .frame-cap{margin-top:14px;font-size:.78rem;color:var(--muted)}
+.shot{margin:4px 0 0}
+.shot a{display:block;border-radius:14px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px -36px rgba(42,26,36,.55);transition:transform .5s var(--ease),box-shadow .5s}
+.shot a:hover{transform:translateY(-3px);box-shadow:0 40px 70px -36px rgba(42,26,36,.6)}
+.shot img{display:block;width:100%;height:auto}
+.shot figcaption{margin-top:10px;font-size:.82rem;color:var(--muted)}
 .case-num{font:italic 300 1rem var(--serif);color:var(--burgundy)}
 .case h3{font-size:clamp(2rem,3.6vw,3rem);line-height:1.02;margin:10px 0 10px;font-weight:400}
 .case .sub{font:italic 300 1.15rem var(--serif);color:var(--muted);margin:0 0 24px}
@@ -808,6 +813,7 @@ footer a{color:var(--blush-2)}
           <h4>What it does</h4>
           <ul class="ticks">
             <li>Role-based dashboards for Super Admin, Doctor, Caretaker and Patient</li>
+            <li>A Super Admin dashboard to create and lock accounts, assign doctors to patients and review an access audit log, without ever seeing patient content</li>
             <li>Mood tracking, plus AI-based mood detection to keep an eye on the patient's wellbeing</li>
             <li>Appointment scheduling between patients and doctors</li>
             <li>Cara, an AI chat companion powered by Llama 3 through the Groq API</li>
@@ -816,6 +822,25 @@ footer a{color:var(--blush-2)}
         <div class="chapter reveal">
           <h4>My contribution</h4>
           <p>I handled the frontend and the database: the React screens for each role, and the PostgreSQL data model behind them.</p>
+        </div>
+        <div class="chapter reveal">
+          <h4>Admin dashboard</h4>
+          <figure class="shot">
+            <a href="img/vamora-admin.jpg" target="_blank" rel="noopener"><img src="img/vamora-admin.jpg" width="1280" height="800" loading="lazy" alt="VAMORA Super Admin dashboard showing the access audit log: time, role, action, record, access basis and outcome for each event"></a>
+            <figcaption>The Super Admin audit log in the live demo. Every view of a patient's photos or records and every sharing change is recorded, and entries can't be edited or deleted. Demo data is fictional.</figcaption>
+          </figure>
+        </div>
+        <div class="chapter reveal">
+          <h4>Research version · 2026</h4>
+          <p>After graduating I extended VAMORA into a research prototype:</p>
+          <ul class="ticks">
+            <li>Consent-based sharing. The patient approves who sees what, with 13 specific permissions, and has a "My Privacy" page.</li>
+            <li>Cara now answers only from the person's own saved memories, shows where each answer came from, and says when she isn't sure.</li>
+            <li>A doctor view of the care team, how sharing decisions are made, and observations from caregivers.</li>
+            <li>Over 70 automated tests on a real PostgreSQL database.</li>
+            <li>On a synthetic test set, the right memory comes up first far more often than before: MRR@5 went from 0.02 to 0.83.</li>
+          </ul>
+          <p style="color:var(--muted);font-size:.9rem">It hasn't been tested with patients and isn't a medical device.</p>
         </div>
         <div class="chapter reveal">
           <h4>Architecture</h4>
@@ -829,7 +854,7 @@ footer a{color:var(--blush-2)}
           <h4>Team &amp; links</h4>
           <p>Built with Amna Khan and supervised by Ms. Amina Tariq.</p>
           <ul class="chips" aria-label="Tech stack" style="margin-top:12px"><li>React</li><li>Vite</li><li>Node.js</li><li>Express</li><li>PostgreSQL</li><li>Sequelize</li><li>JWT</li><li>bcrypt</li><li>Multer</li><li>Groq · Llama 3</li></ul>
-          <div class="links-row"><a class="textlink" href="https://github.com/vardah-ch/vamora" target="_blank" rel="noopener">Source on GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a></div>
+          <div class="links-row"><a class="textlink" href="https://vamora-coral.vercel.app" target="_blank" rel="noopener">Live demo ↗<span class="sr-only"> (opens in a new tab)</span></a> <a class="textlink" href="https://github.com/vardah-ch/vamora/tree/research-hardening" target="_blank" rel="noopener">Source on GitHub ↗<span class="sr-only"> (opens in a new tab)</span></a></div>
         </div>
       </div>
     </article>
